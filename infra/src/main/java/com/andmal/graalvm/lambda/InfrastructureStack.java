@@ -34,6 +34,7 @@ public class InfrastructureStack extends Stack {
 
     public static final String HELLO_WORLD_JVM_PATH = "/hello-world-jvm";
     public static final String HELLO_WORLD_GRAAL_PATH = "/hello-world-graal";
+    private static final String FUNC_HANDLER = "com.andmal.graalvm.lambda.HelloWorldRequestHandler";
 
     public InfrastructureStack(final Construct parent, final String id) {
         this(parent, id, null);
@@ -54,7 +55,7 @@ public class InfrastructureStack extends Stack {
         Function jvmHelloWorldFunction = new Function(this, "HelloWorldFunctionJvm", FunctionProps.builder()
                 .runtime(Runtime.JAVA_11)
                 .code(Code.fromAsset("../function/target/hello-world-lambda.jar"))
-                .handler("virtua.demo.graalvm.lambda.HelloWorldRequestHandler")
+                .handler(FUNC_HANDLER)
                 .memorySize(2048)
                 .logRetention(RetentionDays.ONE_WEEK)
                 .build());
@@ -103,7 +104,7 @@ public class InfrastructureStack extends Stack {
                 .code(Code.fromAsset("../function/", AssetOptions.builder()
                         .bundling(builderOptions.build())
                         .build()))
-                .handler("virtua.demo.graalvm.lambda.HelloWorldRequestHandler")
+                .handler(FUNC_HANDLER)
                 .memorySize(256)
                 .logRetention(RetentionDays.ONE_WEEK)
 
